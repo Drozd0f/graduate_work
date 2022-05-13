@@ -13,3 +13,7 @@ venv/
 
 # ide
 .idea
+
+# images
+*.jpg
+*.png
