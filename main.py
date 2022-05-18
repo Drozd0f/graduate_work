@@ -2,6 +2,8 @@ import re
 import typing as t
 from tkinter import filedialog
 
+from cv2 import cv2
+
 from algorithms.canny import Canny
 from algorithms.operator.operators import Operators
 
@@ -17,19 +19,55 @@ def open_image():
 
 
 def main():
-    path = open_image()
+    # path = open_image()
+    path = '/home/dan/graduate_work/images/NURE.jpg'
     name, ext = pars_name_ext(path)
     canny = Canny()
+    kernel_size, sigma = 5, 1.2
+    verbose = False
+    # print('Выполнение оператора Робертса')
+    # canny.run(
+    #     image=path,
+    #     name_file=name,
+    #     extension=ext,
+    #     operator=Operators.ROBERTS.value,
+    #     kernel_size=kernel_size,
+    #     sigma=sigma,
+    #     verbose=verbose
+    # )
+    print('Выполнение оператора Робертса')
     canny.run(
         image=path,
-        name_file=name,
+        name_file=name + '_2',
         extension=ext,
-        is_hysteresis=False,
         operator=Operators.PREWITT.value,
-        kernel_size=5,
-        sigma=1.2,
-        verbose=True
+        kernel_size=kernel_size,
+        sigma=sigma,
+        verbose=verbose
     )
+    # print('Выполнение оператора Превитта')
+    # canny.run(
+    #     image=path,
+    #     name_file=name,
+    #     extension=ext,
+    #     operator=Operators.SOBEL.value,
+    #     kernel_size=kernel_size,
+    #     sigma=sigma,
+    #     verbose=verbose
+    # )
+    # print('Выполнение оператора Щарра')
+    # canny.run(
+    #     image=path,
+    #     name_file=name,
+    #     extension=ext,
+    #     operator=Operators.SHARRA.value,
+    #     kernel_size=kernel_size,
+    #     sigma=sigma,
+    #     verbose=verbose
+    # )
+    # print('Выполнение оператора Кенни')
+    # image = cv2.imread(path)
+    # cv2.imwrite(f'images/result/canny/{name}.{ext}', cv2.Canny(image, 50, 100))
 
 
 if __name__ == '__main__':
