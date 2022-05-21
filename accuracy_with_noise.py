@@ -17,7 +17,7 @@ def check(step: int, is_median: bool, kernel_row: int, kernel_col: int = 0) -> d
         'sharra': []
     }
     # image = open_image()
-    image = 'test_imgs/3.png'
+    image = 'algorithms/test_imgs/3.png'
     image = cv2.imread(image)
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image_w, image_h = gray_image.shape
@@ -43,7 +43,8 @@ def check_accuracy_with_noice(gray_image, image_w, image_h) -> dict:
         'sharra': 0
     }
 
-    canny_res = cv2.Canny(gray_image, 0, 255)
+    gray_image_copy = np.uint8(gray_image)
+    canny_res = cv2.Canny(gray_image_copy, 0, 255)
 
     sobel_res = sobel.sobel_edge_detection(gray_image, operator='sobel')[0]
 
