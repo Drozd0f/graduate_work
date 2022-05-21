@@ -19,33 +19,33 @@ def open_image():
 
 
 def main():
-    # path = open_image()
-    path = '/home/dan/graduate_work/images/NURE.jpg'
+    path = open_image()
+    # path = '/home/dan/graduate_work/images/NURE.jpg'
     name, ext = pars_name_ext(path)
     canny = Canny()
     kernel_size, sigma = 5, 1.2
     verbose = False
-    # print('Выполнение оператора Робертса')
-    # canny.run(
-    #     image=path,
-    #     name_file=name,
-    #     extension=ext,
-    #     operator=Operators.ROBERTS.value,
-    #     kernel_size=kernel_size,
-    #     sigma=sigma,
-    #     verbose=verbose
-    # )
     print('Выполнение оператора Робертса')
     canny.run(
         image=path,
-        name_file=name + '_2',
+        name_file=name,
         extension=ext,
-        operator=Operators.PREWITT.value,
+        operator=Operators.ROBERTS.value,
         kernel_size=kernel_size,
         sigma=sigma,
         verbose=verbose
     )
-    # print('Выполнение оператора Превитта')
+    # print('Выполнение оператора Превитт')
+    # canny.run(
+    #     image=path,
+    #     name_file=name,
+    #     extension=ext,
+    #     operator=Operators.PREWITT.value,
+    #     kernel_size=kernel_size,
+    #     sigma=sigma,
+    #     verbose=verbose
+    # )
+    # print('Выполнение оператора Собеля')
     # canny.run(
     #     image=path,
     #     name_file=name,

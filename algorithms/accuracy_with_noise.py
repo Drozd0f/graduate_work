@@ -4,24 +4,28 @@ import matplotlib.pyplot as plt
 
 from algorithms.image import open_image
 from algorithms.noise import salt_and_pepper
+from filters.median import median
 from algorithms.test_operators import check_image
 from algorithms.operator import prewitt, roberts, sobel, sharra
 
 
-def check() -> dict:
+def check(step: int, is_median: bool, kernel_row: int, kernel_col: int = 0) -> dict:
     result = {
         'roberts': [],
         'prewitt': [],
         'sobel': [],
         'sharra': []
     }
-    image = open_image()
+    # image = open_image()
+    image = 'test_imgs/3.png'
     image = cv2.imread(image)
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image_w, image_h = gray_image.shape
-    for noise_percent in range(0, 100, 50):
+    for noise_percent in range(0, 100, step):
         print(f'Процент зашумлённых пикселей {noise_percent}%')
         gray_image = salt_and_pepper(gray_image, percent=noise_percent)
+        if is_median:
+            gray_image = median(gray_image, kernel_row, False, 'test', kernel_col)
         _check = check_accuracy_with_noice(gray_image, image_w, image_h)
         result['roberts'].append(_check['roberts'])
         result['prewitt'].append(_check['prewitt'])
@@ -73,24 +77,24 @@ def check_accuracy_with_noice(gray_image, image_w, image_h) -> dict:
 
 
 if __name__ == '__main__':
-    result = check()
+    step = 50
+    result = check(step=step, is_median=True, kernel_row=3, kernel_col=0)
 
-    y = list(range(0, 100, 50))
+    y = list(range(0, 100, step))
 
     x_roberts = result['roberts']
     x_prewitt = result['prewitt']
     x_sobel = result['sobel']
     x_sharra = result['sharra']
 
-    print(x_roberts, x_prewitt, x_sobel, x_sharra)
+    plt.plot(y, x_roberts, label='Оператора Робертса')
+    plt.plot(y, x_prewitt, label='Оператора Превитта')
+    plt.plot(y, x_sobel, label='Оператора Собеля')
+    plt.plot(y, x_sharra, label='Оператора Щарра')
 
-    plt.plot(x_roberts, y, label='Оператора Робертса')
-    plt.plot(x_prewitt, y, label='Оператора Превитта')
-    plt.plot(x_sobel, y, label='Оператора Собеля')
-    plt.plot(x_sharra, y, label='Оператора Щарра')
-
-    plt.xlabel('Процент неточности')
-    plt.ylabel('Процент шума')
+    plt.xlabel('Процент шума')
+    plt.ylabel('Процент неточности')
 
     plt.legend()
+    plt.grid()
     plt.show()

@@ -17,3 +17,6 @@ venv/
 # images
 *.jpg
 *.png
+
+# SojferVA pdf
+SojferVA.pdf
