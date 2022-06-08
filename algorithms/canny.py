@@ -67,7 +67,7 @@ class Canny:
             operator: str = 'sobel',
             kernel_size: int = 5, sigma: float = 1,
             verbose: bool = False):
-        image = cv2.imread(image)
+        # image = cv2.imread(image)
         blurred_image = gaussian_blur(image=image, kernel_size=kernel_size, sigma=sigma,
                                       operator=operator, verbose=verbose)
         if operator is self._operators[0]:

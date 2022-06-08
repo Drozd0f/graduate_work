@@ -24,7 +24,7 @@ def roberts_edge_detection(image, operator, convert_to_degree=False, verbose: bo
 
     gradient_magnitude = np.sqrt(np.square(new_image_x) + np.square(new_image_y))
 
-    # gradient_magnitude[gradient_magnitude > 255] = 255
+    gradient_magnitude[gradient_magnitude > 255] = 255
 
     gradient_direction = np.arctan2(new_image_y, new_image_x)
 
